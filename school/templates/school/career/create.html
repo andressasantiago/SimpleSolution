@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Criar Turma	{% endblock %}
+
+{% block content %}
+    <h1>Criar turma</h1>
+    <p>Por favor, insira os dados solicitados:</p>
+    <form action="." method="post">
+        {{ career_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Criar Turma"></p>
+    </form>
+{% endblock %}

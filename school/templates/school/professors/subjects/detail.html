@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes Idioma{% endblock %}
+
+{% block content %}
+    <h1>{{ subject.name }}</h1>
+    <p>Nome: {{ subject.name }}</p>
+    <p>Código: {{ subject.code }}</p>
+    <p>Tipo: {{ subject.get_subject_type }}</p>
+    <p></p>
+    <h2>Avaliação</h2>
+    <p>Registrar avaliações <a href="{% url "professor_grade_create" subject.pk %}">aqui</a></p>
+    <p></p>
+    <table style="width:100%">
+        {% for student in subject.students.all %}
+            <tr>
+                <td>{{ student }}</td>
+                {% for grade in student.grade_set.all %}
+                    {% if grade.subject.pk == subject.pk %}
+                        <td><a href="{% url "professor_grade_edit" grade.pk %}">{{ grade }}</a></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

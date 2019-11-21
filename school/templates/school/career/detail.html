@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes de turma{% endblock %}
+
+{% block content %}
+    <h1><a href="{% url "career_edit" career.id %}">{{ career.name }}</a></h1>
+    <p>Nome/Período: {{ career.name }}</p>
+    <p>Código: {{ career.code }}</p>
+    <p></p>
+    <h2>Idiomas</h2>
+    {% for subject in career.subjects.all %}
+        <p><a href="{% url "subject_detail" subject.id %}">{{ subject.name }}</a></p>
+    {% endfor %}
+{% endblock %}

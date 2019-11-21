@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div id="header">
+        <span class="logo">SIMPLE SOLUTION</span>
+        {% if request.user.is_authenticated %}
+        <ul class="menu">
+            <li {% if section == "dashboard" %}class="selected"{% endif %}><a href="{% url "dashboard" %}">Início</a></li>
+            {% if request.user.is_staff %}
+                <li {% if section == "users" %}class="selected"{% endif %}><a href="{% url "users_list" %}">Usuários</a></li>
+                <li {% if section == "professors" %}class="selected"{% endif %}><a href="{% url "professors_list" %}">Professores</a></li>
+                <li {% if section == "students" %}class="selected"{% endif %}><a href="{% url "students_list" %}">Alunos</a></li>
+                <li {% if section == "careers" %}class="selected"{% endif %}><a href="{% url "careers_list" %}">Turmas</a></li>
+                <li {% if section == "subjects" %}class="selected"{% endif %}><a href="{% url "subjects_list" %}">Idiomas</a></li>
+            {% endif %}
+            {% if request.user.profile %}
+                {% if request.user.profile.profile_type == request.user.profile.PROFESSOR %}
+                    <li {% if section == "subjects" %}class="selected"{% endif %}><a href="{% url "professor_subjects_list" %}">Idiomas</a></li>
+                    <li {% if section == "absences" %}class="selected"{% endif %}><a href="{% url "absences_list" %}">Ausencias</a></li>
+                {% endif %}
+                {% if request.user.profile.profile_type == request.user.profile.STUDENT %}
+                    <li {% if section == "subjects" %}class="selected"{% endif %}><a href="{% url "student_subjects_list" %}">Idiomas</a></li>
+                    <li {% if section == "absences" %}class="selected"{% endif %}><a href="{% url "student_absences_list" %}">Ausências</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+        {% endif %}
+
+        <span class="user">
+        {% if request.user.is_authenticated %}
+            Olá {{ request.user.first_name }}, <a href="{% url "logout" %}">  encerrar sessão</a>
+        {% else %}
+            <a href="{% url "login" %}">Iniciar sessão</a>
+        {% endif %}
+        </span>
+    </div>
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src=" http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js "></script>
+    <script>
+        var csrftoken = $.cookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $(document).ready(function(){
+            {% block domready %}
+            {% endblock %}
+		});
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes professor{% endblock %}
+
+{% block content %}
+    <h1><a href="{% url "professor_edit" professor.pk %}">{{ professor.profile.user.first_name }}, {{ professor.profile.user.last_name }} - {{ professor.profile.user.username }}</a></h1>
+    <p>Usuário: {{ professor.profile.user.username }}</p>
+    <p>Nome: {{ professor.profile.user.first_name }}</p>
+    <p>Sobrenome: {{ professor.profile.user.last_name }}</p>
+    <p>Codigo: {{ professor.code }}</p>
+    <p>Endereço: {{ professor.profile.address }}</p>
+    <p>Telefone: {{ professor.profile.phone }}</p>
+    <p>Email: {{ professor.profile.user.email }}</p>
+    <p>Data de nascimento: {{ professor.profile.date_of_birth }}</p>
+    <p></p>
+    <h2>Idiomas</h2>
+    {% for subject in professor.subject_set.all %}
+        <p><a href="{% url "subject_detail" subject.id %}">{{ subject.name }}</a></p>
+    {% endfor %}
+{% endblock %}

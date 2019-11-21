@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Idiomas{% endblock %}
+
+{% block content %}
+    <h1>Idiomas</h1>
+    {% for subject in subjects %}
+        <div>
+            <p class="title"><a href="{% url "student_subject_details" subject.pk %}">{{ subject.name }}</a></p>
+        </div>
+    {% endfor %}
+{% endblock %}

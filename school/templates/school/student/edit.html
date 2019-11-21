@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Aluno{% endblock %}
+
+{% block content %}
+    <h1>Editando aluno {{ student.profile }}</h1>
+    <form action="." method="post" enctype="multipart/form-data">
+        {{ student_form.as_p }}
+        {{ profile_form.as_p }}
+        {{ user_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Editar aluno"></p>
+    </form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Avaliação{% endblock %}
+
+{% block content %}
+    <h1>Editando avaliação de {{ subject.name }}</h1>
+    <p>Detalhes da avaliação:</p>
+    <form action="." method="post">
+        {{ grade_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Editar avaliação"></p>
+    </form>
+    <form action="." method="post">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="delete">
+        <p><input class="remove_button" type="submit" value="Eliminar avaliação"></p>
+    </form>
+{% endblock %}

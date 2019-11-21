@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Usuários{% endblock %}
+
+{% block content %}
+    <h1>Usuários</h1>
+    <p>Criar novo usuário <a href="{% url "register" %}">aqui</a></p>
+    <div id="people-list">
+        {% if  admins %}
+            <h2>Administradores</h2>
+            {% for user in admins %}
+                <div class="user">
+                    <div class="info">
+                        <p class="title">
+                            {% if user.profile %}
+                                <a href="{% url "admin_detail" user.pk %}">- {{ user.get_full_name }} - {{ user.username }}</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if  professors %}
+            <h2>Professores</h2>
+            {% for user in professors %}
+                <div class="user">
+                    <div class="info">
+                        <p class="title"><a href="{% url "professor_detail" user.pk %}">- {{ user.profile }}</a></p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if  students %}
+            <h2>Alunos</h2>
+            {% for user in students %}
+                <div class="user">
+                    <div class="info">
+                        <p class="title"><a href={% url "student_detail" user.pk %}>- {{ user.profile }}</a></p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

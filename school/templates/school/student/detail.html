@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes aluno{% endblock %}
+
+{% block content %}
+    <h1><a href="{% url "student_edit" student.pk %}">{{ student.profile.user.first_name }}, {{ student.profile.user.last_name }} - {{ student.code }}</a></h1>
+    <p>Usuário: {{ student.profile.user.username }}</p>
+    <p>Nome: {{ student.profile.user.first_name }}</p>
+    <p>Sobrenome: {{ student.profile.user.last_name }}</p>
+    <p>Cód.Aluno: {{ student.code }}</p>
+    <p>Endereço: {{ student.profile.address }}</p>
+    <p>Telefone: {{ student.profile.phone }}</p>
+    <p>Email: {{ student.profile.user.email }}</p>
+    <p>Data de nascimento: {{ student.profile.date_of_birth }}</p>
+    <p></p>
+    <h2>Turma</h2>
+    {% for career in student.careers.all %}
+        <p><a href="{% url "career_detail" career.id %}">{{ career.name }}</a></p>
+    {% endfor %}
+    <h2>Idiomas</h2>
+    {% for subject in student.subject_set.all %}
+        <p><a href="{% url "subject_detail" subject.id %}">{{ subject.name }}</a></p>
+    {% endfor %}
+{% endblock %}

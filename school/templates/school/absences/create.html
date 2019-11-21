@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar ausência{% endblock %}
+
+{% block content %}
+    <h1>Registrar ausência</h1>
+    <p>Por favor, insira os dados solicitados:</p>
+    <form action="." method="post">
+        {{ absence_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Registrar ausência"></p>
+    </form>
+{% endblock %}

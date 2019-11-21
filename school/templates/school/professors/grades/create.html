@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Inserir Avaliações{% endblock %}
+
+{% block content %}
+    <h1>Inserindo avaliação para{{ subject.name }}</h1>
+    <p>Por favor, insira os seguintes dados: </p>
+    <form action="." method="post">
+        {{ grade_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Registrar avaliação"></p>
+    </form>
+{% endblock %}

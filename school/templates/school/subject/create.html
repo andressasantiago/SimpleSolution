@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar idioma{% endblock %}
+
+{% block content %}
+    <h1>Adicionar idioma</h1>
+    <p>Por favor, insira os dados necessários:</p>
+    <form action="." method="post">
+        {{ subject_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Registrar idioma"></p>
+    </form>
+{% endblock %}

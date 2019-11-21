@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes Administrador {% endblock %}
+
+{% block content %}
+    <h1><a href="{% url "admin_edit" admin.pk %}">{{ admin.first_name }}, {{ admin.last_name }} - {{ admin.username }}</a></h1>
+    <p>Usuário: {{ admin.username }}</p>
+    <p>Nome: {{ admin.first_name }}</p>
+    <p>Sobrenome: {{ admin.last_name }}</p>
+    <p>Email: {{ admin.email }}</p>
+    {% if admin.profile %}
+        <p>Endereço: {{ admin.profile.address }}</p>
+        <p>Telefone: {{ admin.profile.phone }}</p>
+        <p>Data de nascimento: {{ admin.profile.date_of_birth }}</p>
+    {% endif %}
+{% endblock %}

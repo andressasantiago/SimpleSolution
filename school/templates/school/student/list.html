@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Alunos{% endblock %}
+
+{% block content %}
+    <h1>Alunos</h1>
+    {% for student in students %}
+        <div>
+            <p class="title"><a href="{% url "student_detail" student.pk %}">{{ student.profile }}</a></p>
+        </div>
+    {% endfor %}
+{% endblock %}

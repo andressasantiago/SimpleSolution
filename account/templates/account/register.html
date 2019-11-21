@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Criar usuário{% endblock %}
+
+{% block content %}
+    <h1>Criar usuário</h1>
+    <p>Por favor, preencha os campos com os dados solicitados:</p>
+    <form action="." method="post">
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Criar usuário"></p>
+    </form>
+{% endblock %}

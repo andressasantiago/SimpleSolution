@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Ausência{% endblock %}
+
+{% block content %}
+    <h1>Editando ausência para {{ absence.student }}</h1>
+    <p>Dados de ausência:</p>
+    <form action="." method="post">
+        {{ absence_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Editar ausência"></p>
+    </form>
+    <form action="." method="post">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="delete">
+        <p><input class="remove_button" type="submit" value="Remover ausência"></p>
+    </form>
+{% endblock %}

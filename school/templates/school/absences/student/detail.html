@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Controle de Frequência{% endblock %}
+
+{% block content %}
+    <h1>{{ student }}</h1>
+    <p></p>
+    <h2>Ausencias</h2>
+    <p></p>
+    <table style="width:65%">
+        {% for absence in student.absences_set.all %}
+            <tr>
+                <td>{{ absence.date }}</td>
+                <td><a href="{% url "absence_edit" absence.pk %}">{{ absence }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

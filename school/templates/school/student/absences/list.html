@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Ausências{% endblock %}
+
+{% block content %}
+    <h1>Ausências</h1>
+    <table style="width:55%">
+        <tr>
+            <td>SOMA de ausências</td>
+            <td>{{ total_absences.total }}</td>
+        </tr>
+    </table>
+    <p></p>
+    <h2>Detalles</h2>
+    <table style="width:55%">
+    {% for absence in student.absences_set.all %}
+        <tr>
+            <td>{{ absence.date }}</td>
+            <td>{{ absence }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Controle de Ausências{% endblock %}
+
+{% block content %}
+    <h1>Ausências</h1>
+    <p>Adicionar ausência <a href="{% url "absence_create" %}">aqui</a></p>
+    <table style="width:65%">
+    {% for absence in absences_list %}
+        <tr>
+            <td>{{ absence.student_name }}</td>
+            <td><a href="{% url "student_absences_detail" absence.student_id %}">{{ absence.absences }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
