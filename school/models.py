@@ -13,26 +13,31 @@ class Professor(models.Model):
 
 
 class Subject(models.Model):
-    VIP = 'SE'
-    TURMA = 'PR'
+    STARTER = 'STARTER'
+    BASIC = 'BASIC'
+    INTERMEDIATE = 'INTERMEDIATE'
+    ADVANCED = 'ADVANCED'
     SUBJECT_TYPE_MAP = {
-        VIP: 'VIP',
-        TURMA: 'TURMA'
+        STARTER: 'STARTER',
+        BASIC: 'BASIC',
+        INTERMEDIATE: 'INTERMEDIATE',
+        ADVANCED: 'ADVANCED',
     }
     SUBJECT_TYPE_CHOICES = (
-        (VIP, SUBJECT_TYPE_MAP[VIP]),
-        (TURMA, SUBJECT_TYPE_MAP[TURMA]),
+        (STARTER, SUBJECT_TYPE_MAP[STARTER]),
+        (BASIC, SUBJECT_TYPE_MAP[BASIC]),
+        (INTERMEDIATE, SUBJECT_TYPE_MAP[INTERMEDIATE]),
+        (ADVANCED, SUBJECT_TYPE_MAP[ADVANCED]),
     )
-
+    
     name = models.CharField(max_length=80, unique=True)
-    code = models.CharField(max_length=25, unique=True)
+    code = models.CharField(max_length=25, unique=True, auto_created=True)
     subject_type = models.CharField(
-        max_length=2,
+        max_length=12,
         choices=SUBJECT_TYPE_CHOICES,
     )
     professors = models.ManyToManyField(Professor, blank=True)
     students = models.ManyToManyField('Student', blank=True)
-
     def __str__(self):
         return '{}, {}'.format(self.name, self.code)
 
@@ -53,7 +58,7 @@ class Student(models.Model):
     profile = models.OneToOneField(Profile,
                                    on_delete=models.PROTECT,
                                    primary_key=True)
-    code = models.CharField(max_length=25, blank=False, help_text='Legajo')
+    code = models.CharField(max_length=25, blank=False, auto_created=True)
     careers = models.ManyToManyField(Career, blank=True)
 
     def __str__(self):
@@ -71,11 +76,6 @@ class Grade(models.Model):
     N_8 = '08'
     N_9 = '09'
     N_10 = '10'
-    N_NS = 'NS'
-    N_S = 'SS'
-    N_B = 'BB'
-    N_MB = 'MB'
-    N_E = 'EE'
     GRADES_MAP = {
         N_1: '1',
         N_2: '2',
@@ -87,11 +87,6 @@ class Grade(models.Model):
         N_8: '8',
         N_9: '9',
         N_10: '10',
-        N_NS: 'NS',
-        N_S: 'S',
-        N_B: 'B',
-        N_MB: 'MB',
-        N_E: 'E',
     }
     GRADES_TURMA = (
         (N_1, GRADES_MAP[N_1]),
@@ -105,14 +100,6 @@ class Grade(models.Model):
         (N_9, GRADES_MAP[N_9]),
         (N_10, GRADES_MAP[N_10]),
     )
-    GRADES_SEMINAR = (
-        (N_NS, GRADES_MAP[N_NS]),
-        (N_S, GRADES_MAP[N_S]),
-        (N_B, GRADES_MAP[N_B]),
-        (N_MB, GRADES_MAP[N_MB]),
-        (N_E, GRADES_MAP[N_E]),
-    )
-    ALL_GRADES = GRADES_TURMA + GRADES_SEMINAR
 
     grade_creator = models.ForeignKey(Profile, on_delete=models.PROTECT)
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
@@ -121,7 +108,7 @@ class Grade(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     grade = models.CharField(
         max_length=2,
-        choices=ALL_GRADES
+        choices=GRADES_TURMA
     )
 
     def __str__(self):
