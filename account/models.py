@@ -5,13 +5,11 @@ from django.conf import settings
 class Profile(models.Model):
     PROFESSOR = 'PR'
     STUDENT = 'ST'
-    PARENT = 'PA'
     ADMIN = 'AD'
 
     PROFILE_TYPE_CHOICES = (
         (PROFESSOR, 'Professor'),
         (STUDENT, 'Student'),
-        (PARENT, 'Parent'),
         (ADMIN, 'Admin')
     )
 
