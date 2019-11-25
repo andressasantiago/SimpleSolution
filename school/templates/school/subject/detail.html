@@ -12,10 +12,6 @@
     {% for professor in subject.professors.all %}
         <p><a href="{% url "professor_detail" professor.pk %}">{{ professor }}</a></p>
     {% endfor %}
-    <h2>Alunos</h2>
-    {% for student in subject.students.all %}
-        <p><a href="{% url "student_detail" student.pk %}">{{ student }}</a></p>
-    {% endfor %}
     <h2>Turmas</h2>
     {% for career in subject.career_set.all %}
         <p><a href="{% url "career_detail" career.id %}">{{ career.name }}</a></p>

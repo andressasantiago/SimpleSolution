@@ -281,10 +281,7 @@ def professor_grade_create(request, subject_id):
         else:
             grade_form = GradeCreationForm()
             grade_form.fields['student'].queryset = subject.students.all()
-            if subject.subject_type == Subject.PROFESORADO:
-                grade_form.fields['grade'].choices = Grade.GRADES_PROFESORADO
-            elif subject.subject_type == Subject.SEMINARIO:
-                grade_form.fields['grade'].choices = Grade.GRADES_SEMINAR
+            grade_form.fields['grade'].choices = Grade.GRADES_TURMA
 
         return render(request, 'school/professors/grades/create.html', {'section': 'subjects',
                                                                         'subject': subject,

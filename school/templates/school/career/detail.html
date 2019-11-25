@@ -4,8 +4,8 @@
 
 {% block content %}
     <h1><a href="{% url "career_edit" career.id %}">{{ career.name }}</a></h1>
-    <p>Nome/Período: {{ career.name }}</p>
-    <p>Código: {{ career.code }}</p>
+    <p>Nome: {{ career.name }}</p>
+    <p>Período: {{ career.code }}</p>
     <p></p>
     <h2>Idiomas</h2>
     {% for subject in career.subjects.all %}
