@@ -3,20 +3,41 @@
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
-    <h1>Iniciar sessão</h1>
-    {% if form.errors %}
-        <p>Seu usuário e senha não coincidem. Por favor, tente novamente.</p>
-    {% else %}
-        <p>
-            Por favor, insira seus dados para iniciar a sessão:
-        </p>
-    {% endif %}
-    <div class="login-form">
-        <form action="{% url "login" %}" method="post">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}"/>
-            <p><input type="submit" value="Log-in"></p>
-        </form>
+
+    <div class="login-position">
+        <div class="about-left">
+            <h1>Sobre nós</h1>
+            <br>
+            <img src="../../static/img/header-education.png" width="100%">
+            <br>
+            <br>
+            O Simple Solution é um sistema para ajudar nas tarefas rotineiras da administração da sua instituição de ensino.<br>
+            <br>
+            Por se tratar de um sistema web, não existem preocupações ou necessidade de instalação de grandes e complexas estruturas de rede. Basta o simples acesso à Internet. <br>
+            <br>
+            Tudo o que você precisa, desde os processos de matrículas, horários de aula, avaliações, notas, frequência, entre outros. Tudo foi desenvolvido com uma proposta de inovação. <br>
+            <br>
+            We are developers, analysts and sometimes students. The idea was born through a project in the second semester of college. We believe that good management transforms. And this is what we deliver. <br>
+        </div>
+
+        <div class="login-right">
+            <h1>Iniciar sessão</h1>
+            {% if form.errors %}
+                <p>Seu usuário e senha não coincidem. Por favor, tente novamente.</p>
+            {% else %}
+                <p>
+                    Por favor, insira seus dados para iniciar a sessão:
+                </p>
+            {% endif %}
+            <div class="login-form">
+                <form action="{% url "login" %}" method="post">
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <p><input type="submit" value="Log-in"></p>
+                </form>
+            </div>
+        </div>
     </div>
+
 {% endblock %}
