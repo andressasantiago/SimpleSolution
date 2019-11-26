@@ -52,6 +52,11 @@ ol {
     margin-right:10%;
 }
 
+#header .user {
+    float:right;
+    padding-top:5px
+}
+
 #header ul.menu {
     list-style:none;
     float:left;
@@ -82,6 +87,23 @@ ol {
 
 #content {
     padding:30px 100px;
+}
+
+.login-position {
+    display:flex;
+    justify-content:center;
+}
+
+
+
+.about-left {
+    text-align:justify;
+    width:70%;
+    padding-right:60px;
+}
+
+.login-right {
+    width:20%;
 }
 
 /* forms */
