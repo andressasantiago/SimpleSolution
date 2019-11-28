@@ -6,7 +6,7 @@ class Professor(models.Model):
     profile = models.OneToOneField(Profile,
                                    on_delete=models.PROTECT,
                                    primary_key=True)
-    code = models.CharField(max_length=25, blank=True)
+    code = models.CharField(max_length=25, blank=True, auto_created=True)
 
     def __str__(self):
         return '{}-{}'.format(self.profile, self.code)
@@ -39,7 +39,7 @@ class Subject(models.Model):
     professors = models.ManyToManyField(Professor, blank=True)
     students = models.ManyToManyField('Student', blank=True)
     def __str__(self):
-        return '{}, {}'.format(self.name, self.code)
+        return '{} {}'.format(self.name, self.code)
 
     def get_subject_type(self):
         return self.SUBJECT_TYPE_MAP[self.subject_type]
