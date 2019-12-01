@@ -6,10 +6,10 @@ class Professor(models.Model):
     profile = models.OneToOneField(Profile,
                                    on_delete=models.PROTECT,
                                    primary_key=True)
-    code = models.CharField(max_length=25, blank=True, auto_created=True)
+    code = models.CharField(max_length=25, blank=True, auto_created=True, verbose_name='Cód')
 
     def __str__(self):
-        return '{}-{}'.format(self.profile, self.code)
+        return '{} - {}'.format(self.profile, self.code)
 
 
 class Subject(models.Model):
@@ -30,35 +30,52 @@ class Subject(models.Model):
         (ADVANCED, SUBJECT_TYPE_MAP[ADVANCED]),
     )
     
-    name = models.CharField(max_length=80, unique=True)
-    code = models.CharField(max_length=25, unique=True, auto_created=True)
+    name = models.CharField(max_length=80, unique=True, verbose_name='Nome')
+    code = models.CharField(max_length=25, unique=True, verbose_name='Código')
     subject_type = models.CharField(
         max_length=12,
-        choices=SUBJECT_TYPE_CHOICES,
+        choices=SUBJECT_TYPE_CHOICES, verbose_name='Nível'
     )
-    professors = models.ManyToManyField(Professor, blank=True)
+    professors = models.ManyToManyField(Professor, blank=True,)
     students = models.ManyToManyField('Student', blank=True)
     def __str__(self):
-        return '{} {}'.format(self.name, self.code)
+        return '{} | {}'.format(self.name, self.subject_type)
 
     def get_subject_type(self):
         return self.SUBJECT_TYPE_MAP[self.subject_type]
 
 
 class Career(models.Model):
-    name = models.CharField(max_length=80, unique=True)
-    code = models.CharField(max_length=25, unique=True)
-    subjects = models.ManyToManyField(Subject, blank=True)
+    SEG_QUA = 'SEG-QUA'
+    TER_QUI = 'TER-QUI'
+    SEXTA = 'SEXTA-2h'
+    SABADO = 'SÁBADO-2h'
+    WEEK_DAYS_MAP = {
+        SEG_QUA: 'SEG-QUA',
+        TER_QUI: 'TER-QUI',
+        SEXTA: 'SEXTA-2h',
+        SABADO: 'SÁBADO-2h',
+    }
+    WEEK_DAYS_CHOICES = [
+        (SEG_QUA, WEEK_DAYS_MAP[SEG_QUA]),
+        (TER_QUI, WEEK_DAYS_MAP[TER_QUI]),
+        (SEXTA, WEEK_DAYS_MAP[SEXTA]),
+        (SABADO, WEEK_DAYS_MAP[SABADO]),
+    ]
+    name = models.CharField(max_length=80, verbose_name='Dias da semana', choices=WEEK_DAYS_CHOICES)
+    code = models.CharField(max_length=25, verbose_name='Cód',unique=True)
+    subjects = models.ManyToManyField(Subject, blank=True,)
+    time = models.CharField(max_length=30,verbose_name='Horário',default='10:00/11:00')
 
     def __str__(self):
-        return '{}, {}'.format(self.name, self.code)
+        return '{} | {} - {}'.format(self.name, self.code,self.time)
 
 
 class Student(models.Model):
     profile = models.OneToOneField(Profile,
                                    on_delete=models.PROTECT,
                                    primary_key=True)
-    code = models.CharField(max_length=25, blank=False, auto_created=True)
+    code = models.CharField(max_length=25, blank=False, auto_created=True,verbose_name='Cód')
     careers = models.ManyToManyField(Career, blank=True)
 
     def __str__(self):
@@ -104,11 +121,11 @@ class Grade(models.Model):
     grade_creator = models.ForeignKey(Profile, on_delete=models.PROTECT)
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
-    date = models.DateField(db_index=True, help_text='mm/dd/yy')
-    created = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(db_index=True, help_text='mm/dd/yy', verbose_name='Data')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Inserida em')
     grade = models.CharField(
         max_length=2,
-        choices=GRADES_TURMA
+        choices=GRADES_TURMA, verbose_name='Nota'
     )
 
     def __str__(self):
@@ -128,11 +145,11 @@ class Absences(models.Model):
     )
     absence_creator = models.ForeignKey(Profile, on_delete=models.PROTECT)
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
-    date = models.DateField(db_index=True, help_text='mm/dd/yy')
-    created = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(db_index=True, help_text='mm/dd/yy', verbose_name='Data')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Data criação')
     absence = models.CharField(
         max_length=2,
-        choices=ABSENCES_CHOICES
+        choices=ABSENCES_CHOICES, verbose_name='Ausencia'
     )
 
     def __str__(self):

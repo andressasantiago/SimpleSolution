@@ -7,7 +7,7 @@ class CareerCreationForm(forms.ModelForm):
 
     class Meta:
         model = Career
-        fields = ('name', 'code', 'subjects')
+        fields = ('name', 'code', 'subjects','time')
 
 
 class SubjectCreationForm(forms.ModelForm):
