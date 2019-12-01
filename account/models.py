@@ -24,4 +24,4 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return '{}, {}'.format(self.user.first_name, self.user.last_name)
+        return '{} {}'.format(self.user.first_name, self.user.last_name)
