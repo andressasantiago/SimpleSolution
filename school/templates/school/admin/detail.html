@@ -3,7 +3,7 @@
 {% block title %}Detalhes Administrador {% endblock %}
 
 {% block content %}
-    <h1><a href="{% url "admin_edit" admin.pk %}">{{ admin.first_name }}, {{ admin.last_name }} - {{ admin.username }}</a></h1>
+    <h1><a href="{% url "admin_edit" admin.pk %}">{{ admin.first_name }} {{ admin.last_name }} - {{ admin.username }}</a></h1>
     <p>Usuário: {{ admin.username }}</p>
     <p>Nome: {{ admin.first_name }}</p>
     <p>Sobrenome: {{ admin.last_name }}</p>

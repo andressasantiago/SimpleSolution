@@ -39,7 +39,7 @@ class Subject(models.Model):
     professors = models.ManyToManyField(Professor, blank=True,)
     students = models.ManyToManyField('Student', blank=True)
     def __str__(self):
-        return '{} | {}'.format(self.name, self.subject_type)
+        return '{} | {} - {}'.format(self.name, self.subject_type, self.code)
 
     def get_subject_type(self):
         return self.SUBJECT_TYPE_MAP[self.subject_type]

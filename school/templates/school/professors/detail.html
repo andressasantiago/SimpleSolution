@@ -3,7 +3,7 @@
 {% block title %}Detalhes professor{% endblock %}
 
 {% block content %}
-    <h1><a href="{% url "professor_edit" professor.pk %}">{{ professor.profile.user.first_name }}, {{ professor.profile.user.last_name }} - {{ professor.profile.user.username }}</a></h1>
+    <h1><a href="{% url "professor_edit" professor.pk %}">{{ professor.profile.user.first_name }} {{ professor.profile.user.last_name }} - {{ professor.profile.user.username }}</a></h1>
     <p>Usuário: {{ professor.profile.user.username }}</p>
     <p>Nome: {{ professor.profile.user.first_name }}</p>
     <p>Sobrenome: {{ professor.profile.user.last_name }}</p>
